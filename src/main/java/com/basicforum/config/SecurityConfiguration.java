@@ -1,7 +1,9 @@
 package com.basicforum.config;
+import com.basicforum.model.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -24,6 +26,8 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(authorize->
                         authorize
                                 .requestMatchers("/api/v1/auth/**").permitAll()
+                                .requestMatchers(HttpMethod.POST,"/api/v1/post/createPost").hasAnyRole(Role.USER.name(),Role.ADMIN.name())
+                                .requestMatchers(HttpMethod.POST,"/api/v1/user/**").hasAnyRole(Role.USER.name(),Role.ADMIN.name())
                                 .anyRequest().authenticated()
                 )
                 .securityContext((securityContext) -> securityContext
@@ -33,8 +37,7 @@ public class SecurityConfiguration {
                 ).sessionManagement(session->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 ).authenticationProvider(authenticationProvider)
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
-                .rememberMe(Customizer.withDefaults());
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 }

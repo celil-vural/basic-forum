@@ -2,6 +2,7 @@ package com.basicforum.service;
 import com.basicforum.Exception.UserAlreadyExists;
 import com.basicforum.Exception.UserNotFound;
 import com.basicforum.model.*;
+import com.basicforum.model.entity.User;
 import com.basicforum.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;

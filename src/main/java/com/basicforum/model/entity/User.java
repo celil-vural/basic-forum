@@ -1,22 +1,22 @@
-package com.basicforum.model;
+package com.basicforum.model.entity;
 
+import com.basicforum.model.Role;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@EqualsAndHashCode(exclude = "posts")
 @Table(name="_users")
 public class User implements UserDetails {
     @Id
@@ -27,6 +27,8 @@ public class User implements UserDetails {
     private String username;
     private String email;
     private String password;
+    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    private Set<Post> posts;
     @Enumerated(EnumType.STRING)
     private Role role;
     @Override
