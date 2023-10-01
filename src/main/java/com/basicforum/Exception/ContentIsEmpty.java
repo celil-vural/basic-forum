@@ -3,7 +3,7 @@ package com.basicforum.Exception;
 import lombok.Getter;
 
 @Getter
-public class ContentIsEmpty extends Exception{
+public class ContentIsEmpty extends RuntimeException {
     private final String message;
     public ContentIsEmpty(){
         super("Content is empty");

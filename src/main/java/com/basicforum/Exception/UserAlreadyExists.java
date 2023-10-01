@@ -5,7 +5,7 @@ import lombok.ToString;
 
 @ToString
 @Getter
-public class UserAlreadyExists extends Exception{
+public class UserAlreadyExists extends RuntimeException {
     private final String message;
     public UserAlreadyExists(){
         super("User already exists");

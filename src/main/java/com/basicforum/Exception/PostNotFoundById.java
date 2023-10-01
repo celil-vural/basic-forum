@@ -3,7 +3,7 @@ package com.basicforum.Exception;
 import lombok.Getter;
 
 @Getter
-public class PostNotFoundById extends Exception{
+public class PostNotFoundById extends RuntimeException {
     private final String message;
     public PostNotFoundById(int id){
         super("Post with id " + id + " not found");

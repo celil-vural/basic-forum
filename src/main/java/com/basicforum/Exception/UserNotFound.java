@@ -5,7 +5,7 @@ import lombok.ToString;
 
 @ToString
 @Getter
-public class UserNotFound extends Exception{
+public class UserNotFound extends RuntimeException {
     private final String message;
     public UserNotFound(String message){
         super(message);
